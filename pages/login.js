@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Layout from './../components/Layout';
+import Alerta from './../components/Alerta';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import authContext from './../context/auth/authContext';
 
-export default function Login() {
+const Login = () => {
+    //Definir el context
+    const AuthContext = useContext(authContext);
+    const { mensaje, autenticado, iniciarSesion } = AuthContext;
+
+    //Next/router
+    const router = useRouter();
+
+    useEffect(() => {
+        if (autenticado) {
+            router.push('/');
+        }
+    }, [autenticado]);
 
     //Formulario y validación con formik y Yup
     const formik = useFormik({
@@ -15,8 +30,8 @@ export default function Login() {
             email: Yup.string().email('El email no es válido').required('El email es obligatorio'),
             password: Yup.string().required('El password es obligatorio')
         }),
-        onSubmit: () => {
-            console.log("Enviado formulario")
+        onSubmit: datos => {
+            iniciarSesion(datos)
         }
     });
 
@@ -24,7 +39,7 @@ export default function Login() {
         <Layout>
             <div className="md:w-4/5 xl:w-3/5 mx-auto mb-32">
                 <h2 className="text-4xl font-sans font-bold text-gray-800 text-center my-4">Iniciar Sesión</h2>
-
+                {mensaje && <Alerta />}
                 <div className="flex justify-center mt-5">
 
                     <div className="w-full max-w-lg">
@@ -92,3 +107,5 @@ export default function Login() {
         </Layout>
     )
 }
+ 
+export default Login;

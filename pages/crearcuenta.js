@@ -5,8 +5,8 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import authContext from './../context/auth/authContext';
 
-export default function CrearCuenta() {
-
+const CrearCuenta = () => {
+    
     //Acceder al state
     const AuthContext = useContext(authContext);
     const { mensaje, registrarUsuarios } = AuthContext;
@@ -32,9 +32,9 @@ export default function CrearCuenta() {
         <Layout>
             <div className="md:w-4/5 xl:w-3/5 mx-auto mb-32">
                 <h2 className="text-4xl font-sans font-bold text-gray-800 text-center my-4">Crear cuenta</h2>
-                    {mensaje && <Alerta />}
+                {mensaje && <Alerta />}
                 <div className="flex justify-center mt-5">
-                    
+
                     <div className="w-full max-w-lg">
                         <form
                             className="bg-white rounded shadow-md px-8 pt-6 pb-8 mb-4"
@@ -59,7 +59,7 @@ export default function CrearCuenta() {
                                         <p className="font-bold">Error</p>
                                         <p>{formik.errors.nombre}</p>
                                     </div>
-                                ): null }
+                                ) : null}
                             </div>
 
                             <div className="mb-4">
@@ -111,7 +111,7 @@ export default function CrearCuenta() {
                                 className="bg-red-500 hover:bg-gray-900 w-full p-2 text-white uppercase font-bold cursor-pointer"
                                 value="Crear Cuenta"
                             />
-                            
+
                         </form>
                     </div>
 
@@ -121,3 +121,7 @@ export default function CrearCuenta() {
         </Layout>
     )
 }
+ 
+export default CrearCuenta;
+
+    

@@ -1,7 +1,8 @@
 import React, { useReducer } from 'react';
+import clienteAxios from './../../config/axios';
 import authContext from './authContext';
 import authReducer from './authReducer';
-import { USUARIO_AUTENTICADO } from './../../types/index';
+import { REGISTRO_EXITOSO, REGISTRO_ERROR, LIMPIAR_ALERTA } from './../../types/index';
 
 const AuthState = ({ children }) => {
     
@@ -16,13 +17,29 @@ const AuthState = ({ children }) => {
     //Definir el reducer
     const [state, dispatch] = useReducer(authReducer, initialState);
 
-    //Usuario autenticado
-    const usuarioAutenticado = nombre => {
-        dispatch({
-            type: USUARIO_AUTENTICADO,
-            payload: nombre
-        })
-    }
+    //Registrar nuevos usuarios
+    const registrarUsuarios = async datos => {
+        try {
+            const respuesta = await clienteAxios.post('/api/usuarios', datos);
+            dispatch({
+                type: REGISTRO_EXITOSO,
+                payload: respuesta.data.msg
+            })
+        }
+        catch (error) {
+            dispatch({
+                type: REGISTRO_ERROR,
+                payload: error.response.data.msg
+            })
+        }
+
+        //Limpiar la alerta después de 3 segundos
+        setTimeout(() => {
+            dispatch({
+                type: LIMPIAR_ALERTA
+            })
+        }, 3000)
+    };
 
     return (
         <authContext.Provider
@@ -31,7 +48,7 @@ const AuthState = ({ children }) => {
                 autenticado: state.autenticado,
                 usuario: state.usuario,
                 mensaje: state.mensaje,
-                usuarioAutenticado
+                registrarUsuarios
             }}
         >
             {children}

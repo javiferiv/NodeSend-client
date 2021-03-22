@@ -1,4 +1,4 @@
-import { REGISTRO_EXITOSO, REGISTRO_ERROR, LIMPIAR_ALERTA, LOGIN_EXITO, LOGIN_ERROR, USUARIO_AUTENTICADO, CERRAR_SESION } from './../../types/index';
+import { REGISTRO_EXITOSO, REGISTRO_ERROR, OCULTAR_ALERTA, LOGIN_EXITO, LOGIN_ERROR, USUARIO_AUTENTICADO, CERRAR_SESION } from './../../types/index';
 
 const authReducer = (state, action) => {
     switch (action.type) {
@@ -34,7 +34,7 @@ const authReducer = (state, action) => {
                 autenticado: null,
             }
         
-        case LIMPIAR_ALERTA:
+        case OCULTAR_ALERTA:
             return {
                 ...state,
                 mensaje: null

@@ -3,7 +3,7 @@ import clienteAxios from './../../config/axios';
 import tokenAuth from './../../config/tokenAuth';
 import authContext from './authContext';
 import authReducer from './authReducer';
-import { REGISTRO_EXITOSO, REGISTRO_ERROR, LIMPIAR_ALERTA, LOGIN_EXITO, LOGIN_ERROR, USUARIO_AUTENTICADO, CERRAR_SESION } from './../../types/index';
+import { REGISTRO_EXITOSO, REGISTRO_ERROR, OCULTAR_ALERTA, LOGIN_EXITO, LOGIN_ERROR, USUARIO_AUTENTICADO, CERRAR_SESION } from './../../types/index';
 
 const AuthState = ({ children }) => {
     
@@ -37,7 +37,7 @@ const AuthState = ({ children }) => {
         //Limpiar la alerta después de 3 segundos
         setTimeout(() => {
             dispatch({
-                type: LIMPIAR_ALERTA
+                type: OCULTAR_ALERTA
             })
         }, 3000)
     };

@@ -43,9 +43,10 @@ const AuthState = ({ children }) => {
     };
 
     //Autenticar Usuarios
-    const iniciarSesion = async datos => {
+    const iniciarSesion = async valores => {
+
         try {
-            const respuesta = await clienteAxios.post('/api/auth', datos);
+            const respuesta = await clienteAxios.post('/api/auth', valores);
             dispatch({
                 type: LOGIN_EXITO,
                 payload: respuesta.data.token

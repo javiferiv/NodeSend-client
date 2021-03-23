@@ -14,12 +14,6 @@ const Login = () => {
     //Next/router
     const router = useRouter();
 
-    useEffect(() => {
-        if (autenticado) {
-            router.push('/');
-        }
-    }, [autenticado]);
-
     //Formulario y validación con formik y Yup
     const formik = useFormik({
         initialValues: {
@@ -30,8 +24,9 @@ const Login = () => {
             email: Yup.string().email('El email no es válido').required('El email es obligatorio'),
             password: Yup.string().required('El password es obligatorio')
         }),
-        onSubmit: datos => {
-            iniciarSesion(datos)
+        onSubmit: valores => {
+            iniciarSesion(valores)
+            router.push('/');
         }
     });
 

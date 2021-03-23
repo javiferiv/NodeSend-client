@@ -28,7 +28,7 @@ const Home = () => {
         {url ? (
           <>
             <p className="text-center text-2xl mt-10">
-              <span className="font-bold text-red-700 text-4xl uppercase">Tu url es: </span>{`${process.env.frontendURL}/enlaces/${url}`}
+              <span className="font-bold text-red-700 text-3xl uppercase">Tu url es: </span>{`${process.env.frontendURL}/enlaces/${url}`}
             </p>
 
             <button

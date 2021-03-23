@@ -2,11 +2,19 @@ import React, { useCallback, useContext } from 'react';
 import { useDropzone } from 'react-dropzone';
 import clienteAxios from './../config/axios';
 import appContext from './../context/app/appContext';
+import authContext from './../context/auth/authContext';
+import Formulario from './Formulario';
+
 
 const Dropzone = () => {
 
+    //Context de la app
     const AppContext = useContext(appContext);
     const { cargando, mostrarAlerta, subirArchivos, crearEnlace } = AppContext;
+
+    //Context de autenticacion
+    const AuthContext = useContext(authContext);
+    const { usuario, autenticado } = AuthContext;
 
 
     const onDropRejected = useCallback(async (acceptedFiles) => {
@@ -42,6 +50,9 @@ const Dropzone = () => {
                             <ul>
                                 {archivos}
                             </ul>
+                            {
+                                autenticado ? <Formulario /> : ""
+                            }
                         {cargando ? <p className="my-10 text-center text-gray-600">Subiendo archivo...</p> : (
                             <button
                                 type="button"
